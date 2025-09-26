@@ -1,0 +1,55 @@
+Baseball Bat,Melee,Shared
+Lead Pipe,Melee,Shared
+Golf Club,Melee,Shared
+Knife,Melee,Shared
+Machete,Melee,Shared
+Katana,Melee,Shared
+Pot,Melee,Shared
+Chainlink,Melee,Shared
+Fireaxe,Melee,Shared
+Baton,Melee,Shared
+Taser,Melee,Shared
+Hammer,Melee,Shared
+Glass Bottle,Melee,Shared
+Cleaver,Melee,Shared
+Drill,Melee,Shared
+Briefcase,Melee,HM1
+Crowbar,Melee,HM1
+Pool Cue,Melee,HM1
+Frying Pan,Melee,HM1
+Sledgehammer,Melee,HM1
+Trophy,Melee,HM1
+Butterfly Knife,Melee,HM2
+Chainsaw,Melee,HM2
+Nunchaku,Melee,HM2
+Skateboard,Melee,HM2
+Big Pipe,Melee,HM2
+Shard Blade,Melee,HM2
+Toothbrush,Melee,HM2
+Shotgun,Firearm,Shared
+Double Barrel,Firearm,Shared
+M16,Firearm,Shared
+Uzi,Firearm,Shared
+Skorpion,Firearm,Shared
+Silenced Pistol,Firearm,Shared
+Magnum,Firearm,Shared
+MP5,Firearm,Shared
+Silenced Uzi,Firearm,Shared
+9mm,Firearm,HM2
+Kalashnikov,Firearm,HM2
+FAMAE,Firearm,HM2
+Mendoza,Firearm,HM2
+Heavy Machine Gun,Firearm,HM2
+Sniper Rifle,Firearm,HM2
+Flamethrower,Firearm,HM2
+Nail Gun,Firearm,HM2
+Hammer,Throwable,Shared
+Glass Bottle,Throwable,Shared
+Pot,Throwable,Shared
+Throwing Knife,Throwable,Shared
+Ninja Star,Throwable,HM1
+Beer Can,Throwable,HM1
+Dart,Throwable,HM1
+Brick,Throwable,HM1
+Scissors,Throwable,HM1
+Acid,Throwable,HM2
