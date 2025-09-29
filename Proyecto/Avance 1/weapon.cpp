@@ -3,7 +3,7 @@ weapon.cpp
 Author: Eduardo Hernández Alonso - A01707225
  */
 
-#include "Weapon.h"
+#include "weapon.h"
 #include <fstream>
 
 /*
