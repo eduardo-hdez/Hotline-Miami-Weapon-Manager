@@ -3,7 +3,7 @@ main.cpp
 Author: Eduardo Hernández Alonso - A01707225
  */
 
-#include "Weapon.h"
+#include "weapon.h"
 #include <iostream>
 #include <limits>
 #include <string>
