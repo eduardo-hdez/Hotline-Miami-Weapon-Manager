@@ -43,9 +43,6 @@ Heavy Machine Gun,Firearm,HM2
 Sniper Rifle,Firearm,HM2
 Flamethrower,Firearm,HM2
 Nail Gun,Firearm,HM2
-Hammer,Throwable,Shared
-Glass Bottle,Throwable,Shared
-Pot,Throwable,Shared
 Throwing Knife,Throwable,Shared
 Ninja Star,Throwable,HM1
 Beer Can,Throwable,HM1
