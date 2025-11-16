@@ -12,34 +12,54 @@ Author: Eduardo Hernández Alonso - A01707225
  #include <sstream>
  #include <iostream>
  
- class Weapon {
- private:
-     std::string name;
-     std::string type;
-     std::string exclusivity;
-     int loadOrder;  // Orden en que fue cargada desde el archivo
- 
- public:
-     Weapon() : name(""), type(""), exclusivity(""), loadOrder(0) {}
-     
-     Weapon(const std::string& line, int order = 0) {
-         std::stringstream ss(line);
-         std::getline(ss, name, ',');
-         std::getline(ss, type, ',');
-         std::getline(ss, exclusivity, ',');
-         loadOrder = order;
-     }
- 
-     void showFile() const {
-         std::cout << "Weapon: " << name << " | Type: " << type
-                   << " | Exclusivity: " << exclusivity << std::endl;
-     }
- 
-     std::string getName() const { return name; }
-     std::string getType() const { return type; }
-     std::string getExclusivity() const { return exclusivity; }
-     int getLoadOrder() const { return loadOrder; }
- };
+class Weapon {
+private:
+    std::string name;
+    std::string type;
+    std::string exclusivity;
+    int loadOrder;  // Orden en que fue cargada desde el archivo
+
+public:
+    /*
+    Constructor por default - Inicializa un objeto Weapon vacío.
+    Complejidad de tiempo: O(1)
+    Descripción: Inicializa todos los atributos con valores por default.
+     */
+    Weapon() : name(""), type(""), exclusivity(""), loadOrder(0) {}
+    
+    /*
+    Constructor parametrizado - Crea un objeto Weapon a partir de una línea CSV.
+    Complejidad de tiempo: O(m) donde m es la longitud de la línea.
+    Descripción: Usa stringstream y getline para parsear la línea CSV.
+     */
+    Weapon(const std::string& line, int order = 0) {
+        std::stringstream ss(line);
+        std::getline(ss, name, ',');
+        std::getline(ss, type, ',');
+        std::getline(ss, exclusivity, ',');
+        loadOrder = order;
+    }
+
+    /*
+    showFile() - Muestra la información del arma en consola.
+    Complejidad de tiempo: O(1)
+    Descripción: Imprime strings previamente almacenados.
+     */
+    void showFile() const {
+        std::cout << "Weapon: " << name << " | Type: " << type
+                  << " | Exclusivity: " << exclusivity << std::endl;
+    }
+
+    /*
+    Getters - Retornan los atributos del objeto.
+    Complejidad de tiempo: O(1)
+    Descripción: Acceso directo a atributos almacenados.
+     */
+    std::string getName() const { return name; }
+    std::string getType() const { return type; }
+    std::string getExclusivity() const { return exclusivity; }
+    int getLoadOrder() const { return loadOrder; }
+};
  
 // Funciones para trabajar con std::map
 void showWeapons(const std::map<std::string, Weapon>& weaponMap);

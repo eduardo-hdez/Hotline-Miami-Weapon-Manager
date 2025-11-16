@@ -11,7 +11,15 @@ Author: Eduardo Hernández Alonso - A01707225
  #include <algorithm>
  #include <cctype>
  
-// Convierte una cadena a formato de nombre propio.
+/*
+toProperCase(const std::string& str) - Convierte una cadena a formato de nombre propio (primera letra mayúscula, resto minúsculas).
+Complejidad de tiempo:
+- Mejor caso: O(1) si la cadena está vacía.
+- Caso promedio: O(m) donde m es la longitud de la cadena.
+- Peor caso: O(m)
+Descripción: Recorre la cadena carácter por carácter aplicando los cambios.
+La primera letra se convierte a mayúscula y el resto a minúsculas.
+ */
  std::string toProperCase(const std::string& str) {
      if (str.empty()) {
         return str;
@@ -25,13 +33,50 @@ Author: Eduardo Hernández Alonso - A01707225
  }
  
  
- // Convierte una cadena completa a mayúsculas.
+/*
+toUpperCase(const std::string& str) - Convierte una cadena completa a mayúsculas.
+Complejidad de tiempo:
+- Mejor caso: O(m) donde m es la longitud de la cadena.
+- Caso promedio: O(m)
+- Peor caso: O(m)
+Descripción: Usa std::transform para recorrer toda la cadena aplicando toupper a cada carácter.
+ */
  std::string toUpperCase(const std::string& str) {
      std::string result = str;
      std::transform(result.begin(), result.end(), result.begin(), ::toupper);
      return result;
  }
  
+/*
+main() - Función principal del programa. Gestiona el menú interactivo del inventario de armas.
+Complejidad de tiempo:
+- Inicialización: O(n log n) para cargar n armas del archivo (loadWeapons)
+- Por cada iteración del menú (depende de la opción seleccionada):
+  * Opción 1 (Show inventory): O(n log n) - showWeapons ordena por loadOrder
+  * Opción 2 (Add weapon): O(m + n) - búsqueda de maxOrder O(n), inserción O(log n)
+  * Opción 3 (Search weapon): O(m + log n) - búsqueda en mapa O(log n)
+  * Opción 4 (Remove weapon): O(m + log n) - eliminación del mapa O(log n)
+  * Opción 5 (Filter by type): O(n) - recorre todas las armas
+  * Opción 6 (Filter by exclusivity): O(n) - recorre todas las armas
+  * Opción 7 (Sort inventory): O(n log n) en promedio, O(n²) peor caso - QuickSort
+  * Opción 8 (Show statistics): O(n) - cuenta armas por categoría
+  * Opción 9 (Exit): O(n log n) - saveWeapons ordena y escribe todas las armas
+- Mejor caso general: O(n log n) si solo se carga y sale inmediatamente
+- Caso promedio: O(k * n log n) donde k es el número de operaciones realizadas
+- Peor caso: O(k * n²) si se realizan múltiples sorts con pivotes inadecuados
+
+Donde:
+- n = número de armas en el inventario
+- m = longitud promedio de los strings (nombres, tipos)
+- k = número de operaciones realizadas por el usuario
+
+Descripción: El programa carga el inventario una vez al inicio con complejidad O(n log n).
+Luego entra en un loop interactivo donde el usuario puede realizar múltiples operaciones.
+La operación más costosa es el ordenamiento (opción 7) con O(n log n) en promedio y O(n²) 
+en el peor caso si QuickSort elige pivotes inadecuados. Al salir, guarda el inventario 
+actualizado con complejidad O(n log n). La complejidad total depende del número y tipo 
+de operaciones que el usuario realice.
+ */
  int main() {
      std::map<std::string, Weapon> weaponInventory;
      loadWeapons("weapons.txt", weaponInventory);
