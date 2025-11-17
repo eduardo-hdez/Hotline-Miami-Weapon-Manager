@@ -41,12 +41,13 @@ En este segundo avance se implementó:
 En este tercer avance se ha completado el sistema con la funcionalidad de persistencia de datos:
 
 - **Implementación de escritura de archivos:** Se agregó la función `saveWeapons()` que permite guardar el inventario actualizado en un archivo de texto.
-- **Persistencia de cambios:** Al salir del programa (opción 9), el sistema automáticamente guarda todos los cambios realizados durante la sesión en el archivo `weapons_updated.txt`.
-- **Documentación completa de complejidad:** Se completó el análisis de complejidad para todas las operaciones del programa.
+- **Sistema de backup automático:** Se implementó la función `createBackup()` que crea automáticamente un respaldo del archivo original `weapons.txt` como `weapons_backup.txt` en la primera ejecución, preservando el estado original del inventario.
+- **Persistencia entre sesiones:** Al salir del programa (opción 9), el sistema automáticamente guarda todos los cambios en `weapons.txt`, permitiendo que los cambios persistan entre ejecuciones. En la próxima ejecución, el programa carga el inventario con las modificaciones previas.
+- **Documentación completa de complejidad:** Se completó el análisis de complejidad para todas las operaciones del programa, incluyendo los métodos de la clase `Weapon`, funciones auxiliares y la función `main()`.
 
 ### Cambios sobre el segundo avance
 
-**No se realizaron cambios sobre el segundo avance:** La estructura de datos `std::map`, las funciones de búsqueda, eliminación, filtrado y estadísticas funcionaban adecuadamente. Por lo tanto, solo se agregó la nueva funcionalidad de escritura de archivos sin necesidad de modificar lo previamente implementado.
+**No se realizaron cambios sobre el segundo avance:** La estructura de datos `std::map`, las funciones de búsqueda, eliminación, filtrado y estadísticas funcionaban adecuadamente. Por lo tanto, solo se agregó la nueva funcionalidad de escritura de archivos y el sistema de backup sin necesidad de modificar lo previamente implementado.
 
 ## Instrucciones para compilar el avance de proyecto
 
@@ -179,9 +180,16 @@ By Exclusivity:
 
 ### 9. Salir (Opción 9)
 
-Guarda automáticamente el inventario actualizado en el archivo `weapons_updated.txt` y muestra mensaje de despedida antes de terminar el programa.
+Guarda automáticamente el inventario actualizado en el archivo `weapons.txt` y muestra mensaje de despedida antes de terminar el programa.
 
-**Archivo de salida:** `weapons_updated.txt` contiene todas las armas del inventario (originales y nuevas agregadas) en formato CSV, preservando el orden original con las armas nuevas al final.
+**Sistema de persistencia:**
+
+- En la **primera ejecución**, el programa crea automáticamente `weapons_backup.txt` como respaldo del archivo original
+- Guarda todos los cambios en `weapons.txt`, sobrescribiendo el archivo con el inventario actualizado
+- En la **próxima ejecución**, el programa carga `weapons.txt` con todas las modificaciones previas, permitiendo persistencia entre sesiones
+- El backup original permanece intacto en `weapons_backup.txt` para restauración si es necesario
+
+**Archivo de salida:** `weapons.txt` contiene todas las armas del inventario (originales y nuevas agregadas) en formato CSV, preservando el orden original con las armas nuevas al final.
 
 ## Desarrollo de competencias
 
@@ -347,15 +355,24 @@ El mecanismo maneja correctamente 52 armas del archivo y tiene complejidad $O(n 
 
 #### Implementa mecanismos de escritura de archivos para guardar los datos de las estructuras de manera correcta
 
-He implementado la función `saveWeapons()` que guarda correctamente el inventario actualizado desde el `std::map` a un archivo de texto:
+He implementado dos funciones que trabajan en conjunto para garantizar la persistencia y seguridad de los datos:
 
-**Características del mecanismo:**
+**1. Función `createBackup()`:**
 
-- Crea/sobrescribe el archivo de salida `weapons_updated.txt` con manejo de errores
+- Crea automáticamente un backup del archivo original al iniciar el programa
+- Complejidad: $O(1)$ si el backup ya existe, $O(n)$ si debe copiar n líneas
+- Solo crea el backup en la primera ejecución, preservando el estado original
+- Protege contra pérdida accidental de datos del inventario original
+
+**2. Función `saveWeapons()`:**
+
+- Guarda el inventario actualizado desde el `std::map` a `weapons.txt`
 - Convierte el mapa a vector en $O(n)$ para poder ordenarlo
 - Ordena el vector por `loadOrder` en $O(n \log n)$ usando `std::sort`
-- Escribe cada arma en formato CSV (nombre,tipo,exclusividad) manteniendo compatibilidad con el formato de entrada
+- Escribe cada arma en formato CSV (nombre,tipo,exclusividad) manteniendo compatibilidad
 - Complejidad total: $O(n \log n)$ dominada por la operación de ordenamiento
 - Se ejecuta automáticamente al salir del programa (opción 9)
 
-Este mecanismo permite eque todos los cambios realizados durante la sesión (armas agregadas, armas eliminadas) persistan en el archivo de salida.
+**Sistema de persistencia completo:**
+
+Este mecanismo permite que todos los cambios realizados durante la sesión (armas agregadas, armas eliminadas) persistan entre ejecuciones. Al volver a ejecutar el programa, se carga `weapons.txt` con las modificaciones previas, mientras que `weapons_backup.txt` conserva el inventario original para restauración si es necesario.
