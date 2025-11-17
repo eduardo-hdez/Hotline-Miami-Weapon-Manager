@@ -79,8 +79,13 @@ de operaciones que el usuario realice.
  */
  int main() {
      std::map<std::string, Weapon> weaponInventory;
+     
+     // Crear backup del archivo original (solo la primera vez)
+     createBackup("weapons.txt", "weapons_backup.txt");
+     
+     // Cargar el inventario desde weapons.txt
      loadWeapons("weapons.txt", weaponInventory);
- 
+
      int option;
      bool running = true;
  
@@ -264,8 +269,8 @@ de operaciones que el usuario realice.
 
         } else if (option == 9) {
             // Guardar el inventario antes de salir
-            saveWeapons("weapons_updated.txt", weaponInventory);
-            std::cout << "\n✓ Inventory saved to weapons_updated.txt\n";
+            saveWeapons("weapons.txt", weaponInventory);
+            std::cout << "\n✓ Inventory saved to weapons.txt\n";
             running = false;
 
         } else {

@@ -65,6 +65,7 @@ public:
 void showWeapons(const std::map<std::string, Weapon>& weaponMap);
 void loadWeapons(const std::string& filename, std::map<std::string, Weapon>& weaponMap);
 void saveWeapons(const std::string& filename, const std::map<std::string, Weapon>& weaponMap);
+void createBackup(const std::string& sourceFile, const std::string& backupFile);
 Weapon* searchWeapon(std::map<std::string, Weapon>& weaponMap, const std::string& name);
  bool removeWeapon(std::map<std::string, Weapon>& weaponMap, const std::string& name);
  void filterByType(const std::map<std::string, Weapon>& weaponMap, const std::string& type);

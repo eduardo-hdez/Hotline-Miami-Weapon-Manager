@@ -99,6 +99,50 @@ void saveWeapons(const std::string& filename, const std::map<std::string, Weapon
 }
 
 /*
+createBackup(const std::string& sourceFile, const std::string& backupFile) - Crea un backup del archivo fuente.
+Complejidad de tiempo:
+- Mejor caso: O(1) si el backup ya existe.
+- Caso promedio: O(n) donde n es el número de líneas en el archivo.
+- Peor caso: O(n)
+Descripción: Verifica si el archivo de backup ya existe. Si no existe, copia línea por línea
+del archivo fuente al backup. Esto preserva el archivo original antes de cualquier modificación.
+Si el backup ya existe, no hace nada para mantener el backup original intacto.
+ */
+void createBackup(const std::string& sourceFile, const std::string& backupFile) {
+    // Verificar si el backup ya existe
+    std::ifstream checkBackup(backupFile);
+    if (checkBackup.is_open()) {
+        checkBackup.close();
+        // El backup ya existe, no hacer nada para preservarlo
+        return;
+    }
+    
+    // El backup no existe, crearlo
+    std::ifstream source(sourceFile);
+    if (!source.is_open()) {
+        std::cout << "Warning: Could not open source file for backup: " << sourceFile << std::endl;
+        return;
+    }
+    
+    std::ofstream backup(backupFile);
+    if (!backup.is_open()) {
+        std::cout << "Warning: Could not create backup file: " << backupFile << std::endl;
+        source.close();
+        return;
+    }
+    
+    // Copiar línea por línea
+    std::string line;
+    while (std::getline(source, line)) {
+        backup << line << std::endl;
+    }
+    
+    source.close();
+    backup.close();
+    std::cout << "✓ Backup created: " << backupFile << std::endl;
+}
+
+/*
 searchWeapon(std::map<std::string, Weapon>& weaponMap, const std::string& name) - Busca un arma por nombre.
  Complejidad de tiempo:
  - Mejor caso: O(log n)
