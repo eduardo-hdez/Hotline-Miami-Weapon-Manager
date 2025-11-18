@@ -205,8 +205,6 @@ En mi proyecto, he implementado el algoritmo de ordenamiento **QuickSort** en la
 
 Comparado con algoritmos como Bubble Sort, Selection Sort o Insertion Sort, que tienen complejidad $O(n^2)$ en el peor caso, QuickSort es más eficiente para manejar volúmenes grandes o dinámicos de datos, lo cual es importante si el usuario decide agregar muchas armas al inventario en el futuro.
 
-La función `partition` tiene complejidad $O(n)$ ya que recorre una vez el segmento del vector, y QuickSort la llama recursivamente dividiendo el problema en subproblemas más pequeños, resultando en la complejidad final mencionada.
-
 #### Hace un análisis de complejidad correcto y completo de todas las estructuras de datos y cada uno de sus usos en el programa.
 
 En el segundo avance, he implementado la estructura de datos **std::map<std::string, Weapon>** y documentado el análisis de complejidad de sus operaciones principales:
@@ -261,16 +259,16 @@ Para mi proyecto, decidí utilizar **QuickSort** debido a sus características e
 
 - QuickSort tiene una complejidad temporal promedio de $O(n \log n)$, lo que lo hace eficiente para listas con tamaños variables y potencialmente grandes, como el inventario que puede crecer si el usuario agrega más armas.
 - Aunque su peor caso es $O(n^2)$, este escenario es poco frecuente y puede mitigarse con una buena selección de pivote.
-- QuickSort es un algoritmo in-place que no requiere memoria adicional significativa, lo que es útil para la gestión eficiente de recursos en sistemas con memoria limitada.
+- QuickSort es un algoritmo que no requiere memoria adicional significativa, lo que es útil para la gestión eficiente de recursos en sistemas con memoria limitada.
 - La implementación es sencilla y fácil de adaptar para ordenar por múltiples criterios (nombre, tipo, exclusividad) sin grandes modificaciones.
 
 Al comparar con otros algoritmos como Merge Sort, que tiene complejidad garantizada $O(n \log n)$ y es estable, o Insertion Sort y Bubble Sort, que sólo son eficientes para listas parcialmente ordenadas, QuickSort representa un balance óptimo entre velocidad, memoria y facilidad de implementación para este proyecto.
 
-En conclusión, QuickSort fue el más adecuado para mi proyecto debido a su rendimiento eficiente en la mayoría de los casos, flexibilidad para ordenar según distintos criterios y bajo consumo de memoria, cumpliendo con los objetivos planteados para la gestión dinámica del inventario. La función `quickSort` implementada permite ordenar por nombre, tipo o exclusividad usando el mismo algoritmo base, demostrando su versatilidad.
+En conclusión, QuickSort fue el más adecuado para mi proyecto debido a su rendimiento eficiente en la mayoría de los casos, flexibilidad para ordenar según distintos criterios y bajo consumo de memoria, cumpliendo con los objetivos planteados para la gestión dinámica del inventario.
 
 #### Selecciona una estructura de datos adecuada al problema y la usa correctamente.
 
-Para el segundo y tercer avance, seleccioné **std::map<std::string, Weapon>** como estructura de datos principal. Esta decisión está fundamentada en las necesidades específicas del gestor de inventario de Hotline Miami:
+Para el segundo avance, seleccioné **std::map<std::string, Weapon>** como estructura de datos principal. Esta decisión está fundamentada en las necesidades específicas del gestor de inventario de Hotline Miami:
 
 **Por qué std::map es adecuado para este problema específico:**
 
@@ -279,69 +277,40 @@ En un gestor de inventario de videojuego, las operaciones más frecuentes son:
 - **Buscar armas por nombre:** El jugador quiere saber si tiene una arma específica
 - **Verificar duplicados:** No se debe tener dos armas con el mismo nombre
 - **Eliminar armas:** Al usar un arma o perderla en el juego
-- **Agregar nuevas armas:** Al recoger armas durante el juego
 
 El `std::map` es ideal porque:
 
 - Usa el nombre del arma como clave única, garantizando que no haya duplicados automáticamente
-- Permite búsquedas rápidas $O(\log n)$ por nombre, crucial para un inventario interactivo
+- Permite búsquedas rápidas $O(\log n)$ por nombre
 - Facilita la eliminación eficiente $O(\log n)$ cuando el jugador usa o pierde un arma
-- La inserción también es eficiente en $O(\log n)$
-- Internamente usa un árbol balanceado (Red-Black Tree) que mantiene las operaciones eficientes incluso con muchos elementos
-- Para ordenar por otros criterios (tipo, exclusividad) se puede convertir temporalmente a vector y usar QuickSort, lo cual es aceptable ya que no es la operación más frecuente
-
-**Comparación con alternativas:**
-
-- `std::vector`: Búsqueda $O(n)$, eliminación $O(n)$ - menos eficiente
-- `std::unordered_map`: Búsqueda $O(1)$ promedio pero no mantiene orden, más complejo para iterar
-- `std::set`: Solo almacenaría claves, no permitiría asociar nombre con objeto Weapon completo
-
-La decisión de usar `std::map` maximiza la eficiencia de las operaciones críticas mientras mantiene la simplicidad del código, haciendo el sistema robusto y escalable.
+- Para ordenar por otros criterios (tipo, exclusividad) se puede convertir temporalmente a vector y usar QuickSort
 
 ### SICT0303: Implementa acciones científicas
 
-#### Implementa mecanismos para consultar información de las estructras correctos.
+#### Implementa mecanismos para consultar información de las estructuras correctos.
 
-He implementado múltiples mecanismos de consulta sobre el `std::map` que permiten al usuario interactuar eficientemente con el inventario:
+He implementado mecanismos de consulta sobre el `std::map` que permiten al usuario interactuar con el inventario:
 
 **Mecanismos implementados:**
 
 1. **Búsqueda por nombre** - `searchWeapon()`
 
-   - Busca un arma específica en $O(\log n)$ usando la función `find` del mapa
-   - Retorna un puntero al objeto Weapon si existe, nullptr si no
+   - Busca un arma específica en $O(\log n)$
    - Disponible en la opción 3 del menú
-   - Incluye normalización de entrada para mayor flexibilidad
 
 2. **Filtrado por tipo** - `filterByType()`
 
-   - Muestra todas las armas de un tipo específico (Melee, Firearm, Throwable)
-   - Itera sobre el mapa completo en $O(n)$ aplicando el filtro
+   - Muestra todas las armas de un tipo (Melee, Firearm, Throwable)
    - Disponible en la opción 5 del menú
-   - Útil para ver categorías específicas del arsenal
 
 3. **Filtrado por exclusividad** - `filterByExclusivity()`
 
    - Muestra armas según su aparición en los juegos (Shared, HM1, HM2)
-   - Itera sobre el mapa completo en $O(n)$ aplicando el filtro
    - Disponible en la opción 6 del menú
-   - Permite identificar armas exclusivas de cada juego
 
 4. **Estadísticas del inventario** - `showStatistics()`
-
-   - Cuenta y muestra totales por categoría (tipo y exclusividad)
-   - Recorre el mapa una vez en $O(n)$ acumulando contadores
+   - Cuenta y muestra totales por categoría
    - Disponible en la opción 8 del menú
-   - Proporciona una vista general cuantitativa del inventario
-
-5. **Mostrar inventario completo** - `showWeapons()`
-
-   - Muestra todas las armas en orden original de carga
-   - Convierte a vector y ordena por `loadOrder` en $O(n \log n)$
-   - Disponible en la opción 1 del menú
-   - Preserva la experiencia consistente del archivo original
-
-Todos estos mecanismos están correctamente implementados con manejo de casos especiales (inventario vacío, arma no encontrada) y proporcionan retroalimentación clara al usuario.
 
 #### Implementa mecanismos de lectura de archivos para cargar datos a las estructuras de manera correcta.
 
@@ -372,7 +341,5 @@ He implementado dos funciones que trabajan en conjunto para garantizar la persis
 - Escribe cada arma en formato CSV (nombre,tipo,exclusividad) manteniendo compatibilidad
 - Complejidad total: $O(n \log n)$ dominada por la operación de ordenamiento
 - Se ejecuta automáticamente al salir del programa (opción 9)
-
-**Sistema de persistencia completo:**
 
 Este mecanismo permite que todos los cambios realizados durante la sesión (armas agregadas, armas eliminadas) persistan entre ejecuciones. Al volver a ejecutar el programa, se carga `weapons.txt` con las modificaciones previas, mientras que `weapons_backup.txt` conserva el inventario original para restauración si es necesario.
