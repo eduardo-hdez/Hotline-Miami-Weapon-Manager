@@ -1,4 +1,4 @@
-# Proyecto: Hotline Miami Weapon Manager
+# Hotline Miami Weapon Manager
 
 Este proyecto simula un sistema de gestión y ordenamiento de un inventario de armas, inspirado en la serie de juegos Hotline Miami, que es uno de mis juegos favoritos. Me parece interesante poder controlar el inventario de armas del juego, ya que estas herramientas son clave en la experiencia de juego.
 
