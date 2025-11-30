@@ -4,6 +4,12 @@ Este proyecto simula un sistema de gestión y ordenamiento de un inventario de a
 
 El programa permite al usuario cargar armas desde un archivo de texto, visualizar el inventario, agregar nuevas armas, buscar armas específicas, eliminar armas, filtrar por categorías, ordenar la lista según diferentes criterios utilizando estructuras de datos eficientes, y guardar los cambios realizados al inventario.
 
+## Problemas
+
+- [1054. Distant Barcodes](https://leetcode.com/problems/distant-barcodes/solutions/7275602/1054-distant-barcodes-explicacion-y-solu-uuyb/)
+- [61. Rotate List](https://leetcode.com/problems/rotate-list/solutions/7324882/61-rotate-list-explicacion-y-solucion-by-4629/)
+- [187. Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/solutions/7362792/187-repeated-dna-sequences-explicacion-y-ery2/)
+
 ## Descripción del avance 1
 
 En este primer avance se ha implementado lo siguiente:
